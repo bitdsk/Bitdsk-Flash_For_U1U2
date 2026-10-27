@@ -1,0 +1,11 @@
+# 统一换行符
+* text=auto eol=lf
+
+# 固件是二进制，禁止任何换行/编码转换
+*.bin binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.pdf binary

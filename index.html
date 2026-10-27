@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flash Bitdsk S1 / U1 / U2 in the browser</title>
+<meta name="description" content="Full USB reflash for Bitdsk S1, U1 Touch and U2 Touch directly in Chrome or Edge. Web Serial, no installer, images served from this repository.">
+<meta property="og:title" content="Bitdsk Flash Tool — S1 / U1 / U2">
+<meta property="og:description" content="Reflash Bitdsk boards over USB in the browser. Bootloader, partition table, NVS, app and OTA data written at the correct offsets.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<script src="js/config.js"></script>
+<!-- esp-web-tools 已本地化到 js/vendor，不依赖任何 CDN -->
+<script type="module" src="js/vendor/esp-web-tools/install-button.js"></script>
+</head>
+<body>
+
+<div class="sitebar">
+ <div class="wrap row">
+  <a class="brand" href="index.html">
+   <img class="brand-logo" src="images/logo.png" srcset="images/logo@2x.png 2x" alt="Bitdsk" width="118" height="30">
+   <span class="bname">Flash <span>Tool</span></span>
+  </a>
+  <nav class="nav" id="nav">
+   <a href="index.html" class="active">Flashing</a>
+   <a href="#" data-main-site="firmware.html">Firmware archive &#8599;</a>
+   <a href="#" data-main-site="docs/docs.html">Docs &#8599;</a>
+   <a href="#" data-main-site="guides/index.html">Guides &#8599;</a>
+  </nav>
+  <button class="hamburger" aria-label="Menu">&#9776;</button>
+ </div>
+</div>
+
+<div class="hero compact">
+ <div class="glow-orb" style="width:380px;height:380px;right:-70px;top:-130px;background:radial-gradient(circle,var(--accent),transparent 65%)"></div>
+ <div class="wrap">
+  <span class="badge"><span class="dot"></span>Browser flashing &middot; Web Serial</span>
+  <h1>Reflash over <span class="grad">USB, in the browser</span></h1>
+  <p class="lead">Writes the complete bootable image &mdash; bootloader, partition table, NVS, application and OTA data &mdash; at the vendor's own offsets. Nothing to install, nothing uploaded.</p>
+ </div>
+</div>
+
+<section class="block" style="padding-top:8px">
+ <div class="wrap">
+
+  <div class="notice danger">
+   <b>This erases the device.</b> A full reflash wipes every setting <b>including the CD KEY</b>. Copy the key from <b>Settings &rarr; System</b> in the miner web UI first &mdash; once lost it cannot be recovered from the firmware.
+   <br><br>
+   Only need to update a device that already works? Use the OTA <code>.zip</code> from the <a href="#" data-main-site="firmware.html" style="color:var(--accent)">firmware archive</a> instead &mdash; it keeps your settings and key.
+  </div>
+
+  <!-- ============ 三块板 ============ -->
+  <div class="sec-head" style="margin-top:34px">
+   <div>
+    <div class="eyebrow">Choose your board</div>
+    <h2>Three different devices</h2>
+    <p>Same screen, very different hardware underneath. Pick the board you actually own &mdash; the images are not interchangeable.</p>
+   </div>
+  </div>
+
+  <div class="flash-grid">
+
+   <!-- ---------- S1 ---------- -->
+   <div class="flash-card" id="s1">
+    <div class="mc-top" style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+     <h3>Bitdsk S1</h3>
+     <span class="pill flash">v_1.5</span>
+    </div>
+    <div class="fc-sub">CYD-2432S028 &middot; no ASIC</div>
+    <p style="color:var(--muted);font-size:13.5px;margin:0">
+     Runs on the off-the-shelf <b>CYD</b> (Cheap Yellow Display) board &mdash; not our own hardware.
+     The ESP32 hashes by itself, so it is a desk display and learning board rather than a money maker.
+     Free, and <b>fully open source</b>.
+    </p>
+    <div class="spec-mini">
+     <span><b>600k&ndash;800k</b> H/s</span>
+     <span><b>USB</b> 5V</span>
+     <span><b>2.8&Prime;</b> touch</span>
+    </div>
+    <a class="src-link" href="https://github.com/bitdsk/Bitdsk-s1-Miner" target="_blank" rel="noopener">
+     Source code &amp; build guide on GitHub &#8599;
+    </a>
+    <esp-web-install-button manifest="firmware/s1/manifest.json">
+     <button slot="activate">Connect &amp; flash S1</button>
+     <span slot="unsupported" class="unsupported">Your browser cannot flash. Use Chrome or Edge on desktop.</span>
+     <span slot="not-allowed" class="unsupported">Serial access is blocked &mdash; this page must be served over HTTPS.</span>
+    </esp-web-install-button>
+    <details class="fc-parts">
+     <summary>&#9662; Image contents (5 partitions)</summary>
+     <table>
+      <tr><td>bootloader.bin</td><td>0x1000</td></tr>
+      <tr><td>partition-table.bin</td><td>0x8000</td></tr>
+      <tr><td>my_cvs_s1.bin</td><td>0x9000</td></tr>
+      <tr><td>bitdsk-miner.bin</td><td>0x20000</td></tr>
+      <tr><td>ota_data_initial.bin</td><td>0x3A0000</td></tr>
+     </table>
+    </details>
+   </div>
+
+   <!-- ---------- U1 ---------- -->
+   <div class="flash-card" id="u1">
+    <div class="mc-top" style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+     <h3>Bitdsk U1 Touch</h3>
+     <span class="pill flash">v_1.5.2</span>
+    </div>
+    <div class="fc-sub">1 ASIC &middot; 200G</div>
+    <p style="color:var(--muted);font-size:13.5px;margin:0">
+     Our entry ASIC model. 200G of hashing at roughly <b>10&nbsp;W</b> &mdash; quiet enough to sit on a desk
+     and cheap to run around the clock. Single ASIC, 2.8&Prime; touch, temperature monitoring.
+    </p>
+    <div class="spec-mini">
+     <span><b>200G</b> hashrate</span>
+     <span><b>&asymp;10&nbsp;W</b></span>
+     <span><b>5V</b> 3A</span>
+    </div>
+    <esp-web-install-button manifest="firmware/u1/manifest.json">
+     <button slot="activate">Connect &amp; flash U1</button>
+     <span slot="unsupported" class="unsupported">Your browser cannot flash. Use Chrome or Edge on desktop.</span>
+     <span slot="not-allowed" class="unsupported">Serial access is blocked &mdash; this page must be served over HTTPS.</span>
+    </esp-web-install-button>
+    <details class="fc-parts">
+     <summary>&#9662; Image contents (5 partitions)</summary>
+     <table>
+      <tr><td>bootloader.bin</td><td>0x1000</td></tr>
+      <tr><td>partition-table.bin</td><td>0x8000</td></tr>
+      <tr><td>my_cvs_u1_nokey.bin</td><td>0x9000</td></tr>
+      <tr><td>bitdsk-miner.bin</td><td>0x20000</td></tr>
+      <tr><td>ota_data_initial.bin</td><td>0x3A0000</td></tr>
+     </table>
+    </details>
+   </div>
+
+   <!-- ---------- U2 ---------- -->
+   <div class="flash-card" id="u2">
+    <div class="mc-top" style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+     <h3>Bitdsk U2 Touch</h3>
+     <span class="pill flash">v_1.5.2</span>
+    </div>
+    <div class="fc-sub">1 ASIC &middot; 1100&ndash;1500G</div>
+    <p style="color:var(--muted);font-size:13.5px;margin:0">
+     The high-hashrate model: <b>5&ndash;7&times; the output of U1</b> at 22&ndash;27&nbsp;W.
+     Same screen and case language, but a much stronger ASIC and a beefier DC supply &mdash;
+     clearly better hashes per watt, at the cost of heat and noise.
+    </p>
+    <div class="spec-mini">
+     <span><b>1100&ndash;1500G</b> hashrate</span>
+     <span><b>&asymp;22&ndash;27&nbsp;W</b></span>
+     <span><b>5V</b> 5A</span>
+    </div>
+    <esp-web-install-button manifest="firmware/u2/manifest.json">
+     <button slot="activate">Connect &amp; flash U2</button>
+     <span slot="unsupported" class="unsupported">Your browser cannot flash. Use Chrome or Edge on desktop.</span>
+     <span slot="not-allowed" class="unsupported">Serial access is blocked &mdash; this page must be served over HTTPS.</span>
+    </esp-web-install-button>
+    <details class="fc-parts">
+     <summary>&#9662; Image contents (5 partitions)</summary>
+     <table>
+      <tr><td>bootloader.bin</td><td>0x1000</td></tr>
+      <tr><td>partition-table.bin</td><td>0x8000</td></tr>
+      <tr><td>my_cvs_u2_nokey.bin</td><td>0x9000</td></tr>
+      <tr><td>bitdsk-miner.bin</td><td>0x20000</td></tr>
+      <tr><td>ota_data_initial.bin</td><td>0x3A0000</td></tr>
+     </table>
+    </details>
+   </div>
+
+  </div>
+
+  <!-- ============ 硬件对比 ============ -->
+  <div class="sec-head" style="margin-top:38px">
+   <div>
+    <div class="eyebrow">Side by side</div>
+    <h2>What actually differs</h2>
+    <p>Hardware specs, not firmware builds. The same screen size hides a 2000&times; gap in hashrate.</p>
+   </div>
+  </div>
+
+  <div class="plat-table-wrap">
+   <table class="plat-table">
+    <thead>
+     <tr><th></th><th>S1</th><th>U1 Touch</th><th>U2 Touch</th></tr>
+    </thead>
+    <tbody>
+     <tr>
+      <th>Hardware</th>
+      <td>Off-the-shelf CYD board</td>
+      <td>In-house design</td>
+      <td>In-house design</td>
+     </tr>
+     <tr>
+      <th>ASIC</th>
+      <td>None &mdash; ESP32 hashes</td>
+      <td>1</td>
+      <td>1</td>
+     </tr>
+     <tr>
+      <th>Hashrate</th>
+      <td>600k&ndash;800k H/s</td>
+      <td><b>200G</b></td>
+      <td><b>1100&ndash;1500G</b></td>
+     </tr>
+     <tr>
+      <th>Power draw</th>
+      <td>USB powered</td>
+      <td>&asymp;10&nbsp;W</td>
+      <td>&asymp;22&ndash;27&nbsp;W</td>
+     </tr>
+     <tr>
+      <th>Supply</th>
+      <td>USB 5V</td>
+      <td>DC / Type-C, 5V &asymp;3A</td>
+      <td>DC, 5V &asymp;5A</td>
+     </tr>
+     <tr>
+      <th>Screen</th>
+      <td>2.8&Prime; touch</td>
+      <td>2.8&Prime; touch</td>
+      <td>2.8&Prime; touch</td>
+     </tr>
+     <tr>
+      <th>Temp. sensor</th>
+      <td>&ndash;</td>
+      <td>&#10003;</td>
+      <td>&#10003;</td>
+     </tr>
+     <tr>
+      <th>Firmware</th>
+      <td>Free &middot; open source</td>
+      <td>Free download</td>
+      <td>Free download</td>
+     </tr>
+    </tbody>
+   </table>
+  </div>
+
+  <div class="notice info">
+   <b>U1 or U2? You already know.</b> The model is printed on the device and on your order &mdash; just pick the matching card.
+   S1 images will not run on U series boards, and U1 and U2 images are not interchangeable either.
+  </div>
+
+  <div class="notice">
+   <b>Version dates are approximate.</b> This site was migrated from the original WordPress installation.
+   Version numbers are accurate, but the dates shown next to them come from the old download tables and may be off by a few days.
+  </div>
+
+  <div class="notice info">
+   <b>N5 series, N8 series and legacy boards cannot be flashed this way.</b>
+   Those devices update by uploading a <code>.zip</code> through the miner web UI &mdash; the files are in the
+   <a href="#" data-main-site="firmware.html" style="color:var(--accent)">firmware archive</a>.
+  </div>
+ </div>
+</section>
+
+<section class="block">
+ <div class="wrap">
+  <div class="sec-head">
+   <div>
+    <div class="eyebrow">Procedure</div>
+    <h2>How to flash</h2>
+   </div>
+  </div>
+  <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(360px,1fr))">
+   <div class="card">
+    <h3 style="margin-top:0">Before you connect</h3>
+    <ol class="steps">
+     <li><b>Back up the CD KEY.</b> Web UI &rarr; Settings &rarr; System. A full erase removes it.</li>
+     <li><b>Use desktop Chrome or Edge.</b> Web Serial is not available in Safari, Firefox or on mobile.</li>
+     <li><b>Use a data-capable USB cable.</b> Charge-only cables are the most common failure.</li>
+     <li><b>Hold BOOT</b> while plugging in if the board is unresponsive &mdash; this forces download mode.</li>
+    </ol>
+   </div>
+   <div class="card">
+    <h3 style="margin-top:0">Flashing</h3>
+    <ol class="steps">
+     <li>Click the button for your board above.</li>
+     <li>Pick the serial port that appears (usually <code>CP210x</code> or <code>CH34x</code>).</li>
+     <li>Keep <b>Erase device</b> checked for a clean install.</li>
+     <li>Wait for <b>Installation complete</b> &mdash; do not unplug during the write.</li>
+     <li>After reboot, join the device AP, open the web UI and re-enter your CD KEY.</li>
+    </ol>
+   </div>
+  </div>
+
+  <div class="notice" style="margin-top:24px">
+   <b>Troubleshooting.</b>
+   No port shown: install the CP210x / CH34x driver, or try another cable and port.
+   Flash fails at &ldquo;Connecting&rdquo;: hold BOOT while reconnecting.
+   Board boots but shows nothing: the wrong image was written &mdash; S1, U1 and U2 images are not interchangeable.
+  </div>
+ </div>
+</section>
+
+<footer>
+ <div class="wrap">
+  <div class="frow">
+   <div class="fcol">
+    <b>BITDSK LAB &middot; Flash Tool</b>
+    <p style="margin:6px 0 0">Flashing runs locally in your browser via Web Serial. Images are served from this repository &mdash; nothing is uploaded, and no server-side code is involved.</p>
+   </div>
+   <div class="links">
+    <a href="index.html">Flashing</a>
+    <a href="#" data-main-site="index.html">Home</a>
+    <a href="#" data-main-site="firmware.html">Firmware</a>
+    <a href="#" data-main-site="docs/docs.html">Docs</a>
+    <a href="#" data-main-site="guides/index.html">Guides</a>
+   </div>
+  </div>
+  <div class="fine">Requires HTTPS (or localhost) and a Chromium-based desktop browser.</div>
+ </div>
+</footer>
+
+<button class="backtop" id="backtop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#8593;</button>
+<script src="js/flash.js"></script>
+</body>
+</html>

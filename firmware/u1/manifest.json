@@ -1,0 +1,20 @@
+{
+  "name": "Bitdsk U1",
+  "version": "v_1.5.2",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "flash_mode": "dio",
+      "flash_size": "4MB",
+      "flash_freq": "40m",
+      "parts": [
+        { "path": "v_1.5.2/bootloader.bin", "offset": 4096 },
+        { "path": "v_1.5.2/partition-table.bin", "offset": 32768 },
+        { "path": "v_1.5.2/my_cvs_u1_nokey.bin", "offset": 36864 },
+        { "path": "v_1.5.2/bitdsk-miner.bin", "offset": 131072 },
+        { "path": "v_1.5.2/ota_data_initial.bin", "offset": 3801088 }
+      ]
+    }
+  ]
+}
