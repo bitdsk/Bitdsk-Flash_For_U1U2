@@ -1,0 +1,14 @@
+# 维护笔记：只留本地，不进仓库（用户只应看到英文 README.md）
+DEVELOPMENT.md
+
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
