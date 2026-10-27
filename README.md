@@ -4,7 +4,7 @@ Re-flash a Bitdsk miner over USB, straight from the browser. No installer, no dr
 command line — the page talks to the ESP32 through the Web Serial API and writes the image from the
 files in this repository. Everything happens locally; nothing is uploaded.
 
-Live at **<https://bitdsk.github.io/bitdsk-flash/>**
+Live at **<https://bitdsk.github.io/Bitdsk-Flash_For_U1U2/>**
 
 ---
 
@@ -91,7 +91,7 @@ tool when the board will not boot or the CD KEY has been wiped.
 | Repository | Contents |
 |---|---|
 | [bitdsk.github.io](https://github.com/bitdsk/bitdsk.github.io) | Main site: firmware index, docs, guides, manuals |
-| **bitdsk-flash** (this repo) | This flash tool and the S1 / U1 / U2 images |
+| **Bitdsk-Flash_For_U1U2** (this repo) | This flash tool and the S1 / U1 / U2 images |
 | [Bitdsk_Miner_Archive](https://github.com/bitdsk/Bitdsk_Miner_Archive) | All other firmware binaries (OTA zips, legacy, PC tools) |
 | [Bitdsk-s1-Miner](https://github.com/bitdsk/Bitdsk-s1-Miner) | S1 firmware source (MIT) |
 
