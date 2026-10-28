@@ -43,7 +43,10 @@ check the model on the device before you start.
 - **HTTPS or localhost.** On a plain `http://` origin `navigator.serial` is blocked and the page will
   tell you so. The hosted site is HTTPS, so this only matters if you serve it yourself.
 - **A data-capable USB cable.** Charge-only cables are the most common reason nothing shows up.
-- **Drivers on Windows.** You may need the CP210x or CH34x driver before a COM port appears.
+- **Use the Flash Port.** U1 and U2 have a dedicated port for flashing — use that one, not the power
+  port. No USB-TTL adapter is needed. On S1 the CYD board's single USB port carries both power and serial.
+- **Windows drivers.** U1 and U2 normally enumerate straight away. The CYD board used by S1 is a CH340;
+  if Device Manager flags the device, install that driver.
 
 ---
 
@@ -58,7 +61,7 @@ check the model on the device before you start.
 **Flashing**
 
 1. Click the button for your board.
-2. Pick the serial port that appears (usually CP210x or CH34x).
+2. Pick the serial port that appears — the Flash Port shows up as a COM port.
 3. Leave **Erase device** checked for a clean install.
 4. Wait for *Installation complete* — do not unplug during the write.
 5. After reboot, join the device's AP and open the web UI. On U1/U2, re-enter your CD KEY there.
@@ -67,7 +70,7 @@ check the model on the device before you start.
 
 | Symptom | Fix |
 |---|---|
-| No port listed | Install the CP210x / CH34x driver, try another cable and another USB port |
+| No port listed | Check the cable is in the Flash Port, try another cable and USB port, close anything else holding the port |
 | Fails at "Connecting" | Hold BOOT while reconnecting |
 | Boots but the screen stays blank | Wrong image was written — S1, U1 and U2 images are not interchangeable |
 
