@@ -225,6 +225,10 @@ section.block{padding:42px 0}
 .flash-card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,var(--card),var(--bg-2));padding:24px;display:flex;flex-direction:column;gap:14px}
 .flash-card h3{margin:0;font-size:19px;letter-spacing:-.01em}
 .flash-card .fc-sub{color:var(--muted);font-size:13px;font-family:var(--mono);margin-top:-8px}
+/* 产品实拍图：出血到卡片边缘，4:3 统一裁切 */
+.flash-card .fc-shot{margin:-24px -24px 4px;overflow:hidden;background:var(--bg-2);border-bottom:1px solid var(--line);border-radius:var(--radius) var(--radius) 0 0}
+.flash-card .fc-shot img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;transition:transform .45s cubic-bezier(.2,.7,.3,1)}
+.flash-card:hover .fc-shot img{transform:scale(1.03)}
 .flash-card .fc-parts{border-top:1px solid var(--line);padding-top:14px;margin-top:auto;font-size:12.5px}
 .flash-card .fc-parts summary{cursor:pointer;color:var(--faint);font-weight:600;list-style:none;display:flex;align-items:center;gap:6px}
 .flash-card .fc-parts summary::-webkit-details-marker{display:none}
