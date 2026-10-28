@@ -22,7 +22,7 @@ are **not interchangeable**.
 | Supply | USB 5 V | DC / USB-C, 5 V ≈3 A | DC, 5 V ≈5 A |
 | Display | 2.8″ touch | 2.8″ touch | 2.8″ touch |
 | Temperature sensor | – | yes | yes |
-| Firmware | free · **open source** | free download | free download |
+| Firmware | free · **open source** | download | download |
 
 - **S1** is not custom hardware. It runs on a generic ESP32 display board with no ASIC, so it hashes
   at a few hundred thousand H/s — it is a desk display and a learning platform, not a miner that pays
