@@ -51,8 +51,8 @@ check the model on the device before you start.
 
 **Before you connect**
 
-1. Back up the **CD KEY** — web UI → Settings → System. A full erase wipes it, and it cannot be
-   recovered afterwards.
+1. **U1 / U2 only — back up the CD KEY.** Web UI → Settings → System. A full erase wipes it and it
+   cannot be recovered afterwards. S1 has no CD KEY, so there is nothing to save.
 2. Hold **BOOT** while plugging in if the board is unresponsive; that forces download mode.
 
 **Flashing**
@@ -61,7 +61,7 @@ check the model on the device before you start.
 2. Pick the serial port that appears (usually CP210x or CH34x).
 3. Leave **Erase device** checked for a clean install.
 4. Wait for *Installation complete* — do not unplug during the write.
-5. After reboot, join the device's AP, open the web UI and re-enter your CD KEY.
+5. After reboot, join the device's AP and open the web UI. On U1/U2, re-enter your CD KEY there.
 
 **If something goes wrong**
 
@@ -82,7 +82,7 @@ five binaries in `firmware/<board>/v_*/`. The page loads the manifest and hands 
 
 Ordinary **OTA updates** do not need this page — download the `.zip` from the
 [firmware archive](https://bitdsk.org/firmware.html) and upload it in the miner's web UI. Use this
-tool when the board will not boot or the CD KEY has been wiped.
+tool when the board will not boot, or when a U1/U2 has lost its CD KEY.
 
 ---
 
